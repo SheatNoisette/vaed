@@ -1,0 +1,13 @@
+# Binaries for programs and plugins
+main
+vaed
+*.exe
+*.exe~
+*.so
+*.dylib
+*.dll
+vls.log
+*.c
+*.txt
+*.dSYM
+.DS_Store
