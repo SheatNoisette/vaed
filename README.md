@@ -22,12 +22,26 @@ Maybe in the future:
 - [ ] Basic QoF Improvements
 - [ ] Others ed commands
 
-```
+## Demo
+```bash
 $ ./vaed
 a
 This is a line
 .
-
+w test.txt
+15
+q
+$ cat test.txt
+This is a line
+$ ./vaed test.txt
+15
+n
+1    This is a line
+c
+This is a edited line
+w
+24
+q
 ```
 
 ## Building
