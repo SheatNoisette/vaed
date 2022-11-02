@@ -77,7 +77,7 @@ fn (mut ctx Vaed_context) increment_line(value int) {
 		&& ctx.current_line + u32(value) <= u32(ctx.file_buffer.len) {
 		ctx.current_line += u32(value)
 	} else {
-		ctx.print_help('Line out of range increment - Got $value - max {ctx.file_buffer.len}')
+		ctx.print_help('Line out of range increment - Got $value - max $ctx.file_buffer.len')
 	}
 }
 
@@ -87,7 +87,7 @@ fn (mut ctx Vaed_context) decrement_line(value int) {
 		&& ctx.current_line - u32(value) <= u32(ctx.file_buffer.len) {
 		ctx.current_line -= u32(value)
 	} else {
-		ctx.print_help('Line out of range decrement - Got $value - max {ctx.file_buffer.len}')
+		ctx.print_help('Line out of range decrement - Got $value - max $ctx.file_buffer.len')
 	}
 }
 

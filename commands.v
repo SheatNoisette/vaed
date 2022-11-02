@@ -119,5 +119,11 @@ fn vaed_handle_increment_line(mut ctx Vaed_context, value string, command_argume
 
 // Decrement line pointer
 fn vaed_handle_decrement_line(mut ctx Vaed_context, value string, command_arguments []string) {
-
+	if value.len == 1 {
+		ctx.decrement_line(1)
+	} else if value.len >= 2 && command_arguments.len == 0 && is_number_from_string(value) {
+		ctx.decrement_line(-parse_number(value))
+	} else {
+		ctx.print_help('Invalid arguments')
+	}
 }

@@ -71,50 +71,61 @@ fn parse_command(s string) []string {
 // Handle basic commands
 fn vaed_prompt(mut ctx Vaed_context) {
 	current_line := parse_command(os.get_line())
+
+	// Check if the command is empty
+	if current_line.len == 0 {
+		ctx.print_help('No command given')
+		return
+	}
+
 	command := current_line[0]
 	command_arguments := current_line[1..]
 
-	println(current_line)
-
 	// Simples commands
-	match command[0].ascii_str() {
-		'h' {
+	match command[0] {
+		`h` {
 			println('Human friendly messages enabled')
 			ctx.help_mode = true
 		}
-		'H' {
+		`H` {
 			ctx.help_mode = false
 		}
-		'q' {
+		`q` {
 			ctx.quit = true
 		}
-		'a' {
+		`a` {
 			vaed_handle_append(mut ctx)
 		}
-		'w' {
+		`w` {
 			vaed_handle_write(mut ctx, command_arguments)
 		}
-		'p' {
+		`p` {
 			vaed_handle_print(mut ctx)
 		}
-		'n' {
+		`n` {
 			vaed_handle_print_number(mut ctx)
 		}
-		'd' {
+		`d` {
 			vaed_handle_delete_line(mut ctx)
 		}
-		'c' {
+		`c` {
 			vaed_handle_edit_line(mut ctx)
 		}
-		'+' {
+		`+` {
 			vaed_handle_increment_line(mut ctx, command, command_arguments)
 		}
-		'-' {
+		`-` {
 			vaed_handle_decrement_line(mut ctx, command, command_arguments)
 		}
 		else {
-			// Most famous error message
-			ctx.print_help('Unknown command')
+
+			// +/- are special cases that are handled in the previous match
+			// If the command is not a number, the user did something wrong
+			if is_number_from_string(command) {
+				ctx.change_line(u32(command.int()))
+			} else {
+				ctx.print_help('Unknown command')
+			}
 		}
 	}
 }
