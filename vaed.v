@@ -57,6 +57,11 @@ fn parse_command(s string) []string {
 			tokens << current_token
 			current_token = ''
 			is_number = false
+		} else if c == ` ` {
+			tokens << current_token
+			current_token = ''
+			is_number = false
+			continue
 		}
 		current_token += c.ascii_str()
 	}
@@ -70,7 +75,8 @@ fn parse_command(s string) []string {
 
 // Handle basic commands
 fn vaed_prompt(mut ctx Vaed_context) {
-	current_line := parse_command(os.get_line())
+	input := os.get_line()
+	current_line := parse_command(input)
 
 	// Check if the command is empty
 	if current_line.len == 0 {
@@ -80,6 +86,7 @@ fn vaed_prompt(mut ctx Vaed_context) {
 
 	command := current_line[0]
 	command_arguments := current_line[1..]
+	command_no_parse := input.split(' ')[1..]
 
 	// Simples commands
 	match command[0] {
@@ -97,7 +104,7 @@ fn vaed_prompt(mut ctx Vaed_context) {
 			vaed_handle_append(mut ctx)
 		}
 		`w` {
-			vaed_handle_write(mut ctx, command_arguments)
+			vaed_handle_write(mut ctx, command_no_parse)
 		}
 		`p` {
 			vaed_handle_print(mut ctx)
@@ -122,6 +129,7 @@ fn vaed_prompt(mut ctx Vaed_context) {
 			// If the command is not a number, the user did something wrong
 			if is_number_from_string(command) {
 				ctx.change_line(u32(command.int()))
+				println(ctx.get_line())
 			} else {
 				ctx.print_help('Unknown command')
 			}

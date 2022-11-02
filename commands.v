@@ -49,7 +49,7 @@ fn vaed_handle_write(mut ctx Vaed_context, command_arguments []string) {
 		return
 	} else if command_arguments.len == 1 {
 		// We override the file path
-		ctx.file_path = command_arguments[0]
+		ctx.file_path = command_arguments.join(' ')
 	} else if ctx.file_path.len == 0 {
 		ctx.print_help('No file loaded, missing arguments')
 		return
@@ -96,14 +96,14 @@ fn vaed_handle_edit_line(mut ctx Vaed_context) {
 		ctx.print_help('No line to edit')
 		return
 	}
-	for {
-		line := os.get_line()
-		if line == '.' {
-			break
-		}
-		ctx.file_buffer[int(ctx.current_line - 1)] = line
-		ctx.current_line++
+
+	line := os.get_line()
+	if line == '.' {
+		return
 	}
+	ctx.file_buffer[int(ctx.current_line - 1)] = line
+	ctx.current_line++
+	vaed_handle_append(mut ctx)
 }
 
 // Increment line pointer
