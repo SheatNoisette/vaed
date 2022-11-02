@@ -118,7 +118,6 @@ fn vaed_prompt(mut ctx Vaed_context) {
 			vaed_handle_decrement_line(mut ctx, command, command_arguments)
 		}
 		else {
-
 			// +/- are special cases that are handled in the previous match
 			// If the command is not a number, the user did something wrong
 			if is_number_from_string(command) {
