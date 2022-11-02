@@ -1,8 +1,9 @@
 # vaed
-`vaed` or `V atto EDitor` is a basic text editor written in V. This is designed
-to be the most basic text editor possible, and is not intended to be a
-full-featured text editor. This program exists for the sole purpose of making a
-simple OS distribution with V-based userland programs only.
+`V-Atto EDitor` or `VAed` for short is a basic text editor written in V.
+This application was designed to be the most basic text editor possible,
+and is not intended to be a full-featured text editor. This program exists for
+the sole purpose of making a simple OS distribution with V-based userland
+programs only.
 
 Supports:
 - [X] Opening files
@@ -18,7 +19,16 @@ Supports:
 
 Maybe in the future:
 - [ ] s: Search for a string
+- [ ] Basic QoF Improvements
 - [ ] Others ed commands
+
+```
+$ ./vaed
+a
+This is a line
+.
+
+```
 
 ## Building
 
